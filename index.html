@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300&display=swap" rel="stylesheet">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <title>Responsive Weather App</title>
+</head>
+<body>
+
+  <div class="outerContainer">
+
+  <video autoplay muted loop id="myVideo">
+    <source id="vidbg" src="imagesandvideos/rain2.mp4" type="video/mp4">
+  </video>
+
+      <div class="detailedInfo">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div> </div>
+        <div id="detailedInfo-item">day1</div>
+        <div id="detailedInfo-item">day2</div>
+        <div id="detailedInfo-item">day3</div>
+        <div id="detailedInfo-item">day4</div>
+        <div id="detailedInfo-item">day5</div>
+        <div id="detailedInfo-item">day6</div>
+        <div id="detailedInfo-item">day7</div>
+
+
+      </div>
+
+      <div class="innerContainer">
+
+        <div id="grid-item" class="cityTempCountry">
+
+
+            <div id="col1">
+              <h1 id="city">city</h1>
+
+              <h1 id="country">country</h1>
+            </div>
+
+              <h1></h1>
+
+            <div id="col3" class="fahcheckbox">
+              <h1 id="cel">&deg;C</h1>
+              <input id="fahcheck" type="checkbox" name="" value="">
+              <h1 id="fah">&deg;F</h1>
+
+            </div>
+
+
+        </div>
+
+        <div id="timedateTemp">
+          <p class="timeAndDate">Time & Date</p>
+          <h1 id="temperature">Temperature</h1>
+          <p></p>
+        </div>
+
+        <div id="grid-item" class="writtenForecast"><p></p></div>
+
+        <div id="grid-item" class="iconForecast"><img id="currentIcon" src="" alt=""></div>
+
+        <div id="grid-item" class="days">
+        <p id="header">Day</p>
+        <p class="day" id="day1"></p>
+        <p class="day" id="day2"></p>
+        <p class="day" id="day3"></p>
+        <p class="day" id="day4"></p>
+        <p class="day" id="day5"></p>
+        <p class="day" id="day6"></p>
+        </div>
+
+        <div id="grid-item" class="dayIcons">
+          <p id="header">Forecast</p>
+          <img id="iconday1" src="" alt="">
+          <img id="iconday2" src="" alt="">
+          <img id="iconday3" src="" alt="">
+          <img id="iconday4" src="" alt="">
+          <img id="iconday5" src="" alt="">
+          <img id="iconday6" src="" alt="">
+        </div>
+
+        <div id="grid-item" class="dayMinMax">
+          <p id="header">Max/Min</p>
+          <p id="dayMinMax1"><span id ="max1"></span><span id ="min1"></span></p>
+          <p id="dayMinMax2"><span id ="max2"></span><span id ="min2"></span></p>
+          <p id="dayMinMax3"><span id ="max3"></span><span id ="min3"></span></p>
+          <p id="dayMinMax4"><span id ="max4"></span><span id ="min4"></span></p>
+          <p id="dayMinMax5"><span id ="max5"></span><span id ="min5"></span></p>
+          <p id="dayMinMax6"><span id ="max6"></span><span id ="min6"></span></p>
+        </div>
+
+        <div id="grid-item" class="daywrittenForecast">
+          <p id="header">Description</p>
+          <p id="daywrittenForecast1"></p>
+          <p id="daywrittenForecast2"></p>
+          <p id="daywrittenForecast3"></p>
+          <p id="daywrittenForecast4"></p>
+          <p id="daywrittenForecast5"></p>
+          <p id="daywrittenForecast6"></p>
+        </div>
+
+        <div id="grid-item" class="searchLocation">
+          <!-- <form autocomplete="off" class="searchbar" action="/action_page.php" method="post">
+            <label for="citylookup">Enter City Name:</label>
+            <input class="autocomplete" type="text" name="citylookup" id="citylookup myiput" value="City Name">
+
+          </form> -->
+
+        <form autocomplete="off" class="searchbar" action="" onsubmit="return false">
+          <div class="autocomplete" id="input-styling-address" style="width: 300px;">
+            <input id="myInput" type="search" name="myCountry" placeholder="Search by City or Country">
+
+          </div>
+          <input type="submit" id="submitBtn" value="Submit" name="">
+
+        </form>
+
+        </div>
+
+        <!-- <div id="grid-item" class="fahrenheit">
+          <button type="button" id="fahbtn" name="fahrenheit">Convert To Fahrenheit</button>
+        </div> -->
+
+      </div>
+
+    </div>
+
+
+
+
+
+<script src="scripts.js" charset="utf-8"></script>
+<script src="https://cdn.jsdelivr.net/npm/places.js@1.19.0"></script>
+
+
+
+
+</body>
+</html>
