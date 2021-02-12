@@ -1,10 +1,10 @@
 let mycity;
 let mycountry;
-let mytemperature;  //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-let feelsLike;  //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+let mytemperature;  
+let icon;
+let feelsLike;  
 let mywrittenForecast;
 let mainForecast;
-let icon;
 let mymin1;
 let mymax1;
 let mymin2;
@@ -17,6 +17,56 @@ let mymin5;
 let mymax5;
 let mymin6;
 let mymax6;
+let myicon1;
+let myicon2;
+let myicon3;
+let myicon4;
+let myicon5;
+let myicon6;
+
+let dayWrittenForecast1;
+let dayWrittenForecast2;
+let dayWrittenForecast3;
+let dayWrittenForecast4;
+let dayWrittenForecast5;
+let dayWrittenForecast6;
+
+let mydaymax;
+let mydaymin;
+let mynight;
+let myevening;
+let mymorning;
+let mypressure;
+let myhumidity;
+let mysunrise;
+let mysunset;
+let myrainfall;
+let mywinddirection;
+let percentageCloudCover;
+let mydaytimestamp;
+let mydaytimestamp2;
+let mydayday;
+let mydayMonth;
+let mydayHours;
+let mydayMinutes;
+let backbtn;
+let mymainForecast;
+let mymaindescription;
+
+
+//Array of video backgrounds
+let videoBackgrounds = ["https://assets.mixkit.co/videos/preview/mixkit-water-drops-creating-ripples-106-large.mp4",
+"https://assets.mixkit.co/videos/preview/mixkit-heavy-rain-in-slow-motion-on-the-tropical-forest-6806-large.mp4",
+"https://assets.mixkit.co/videos/preview/mixkit-fashion-woman-dressed-in-red-18208-large.mp4",
+"https://assets.mixkit.co/videos/preview/mixkit-gloomy-forest-full-of-trees-during-a-rainy-afternoon-22729-large.mp4",
+"https://assets.mixkit.co/videos/preview/mixkit-very-close-shot-of-the-leaves-of-a-tree-wet-18310-large.mp4",
+"https://assets.mixkit.co/videos/preview/mixkit-drawing-a-heart-on-a-foggy-window-on-a-rainy-18308-large.mp4",
+"https://assets.mixkit.co/videos/preview/mixkit-rain-falling-from-the-roof-on-a-rainy-day-2716-large.mp4",
+"https://assets.mixkit.co/videos/preview/mixkit-thunderstorm-at-night-4422-large.mp4",
+"https://assets.mixkit.co/videos/preview/mixkit-dense-layer-of-clouds-before-a-storm-9311-large.mp4",
+"https://assets.mixkit.co/videos/preview/mixkit-soft-rain-and-sun-shine-25375-large.mp4",
+"https://assets.mixkit.co/videos/preview/mixkit-tree-branche-under-the-rain-in-the-woods-6782-large.mp4",
+"https://assets.mixkit.co/videos/preview/mixkit-heavy-rain-in-the-forest-trees-9791-large.mp4"];
 
 function fahrenheitConverter(temp){
   let tempInFahrenheit = Math.round( ((temp - 273) * (9/5)) + 32 ) ;
@@ -26,6 +76,32 @@ function fahrenheitConverter(temp){
 function celsiusConverter(temp){
   let tempInCelsius = Math.round(temp - 273);
   return tempInCelsius;
+}
+
+function dateIdentifier(timestamp){
+  let date = new Date(timestamp * 1000);
+  return date;
+}
+
+function iconMaker(icon){                             //function to create weather emojis based on icon from API 
+  if(icon === "01d"){return "sunny4.png";}
+  else if(icon ==="01n"){return "clearnight4.png";}
+  else if(icon ==="02d"){return "cloudy5.png";}
+  else if(icon ==="02n"){return "partly cloudy.png";}
+  else if(icon ==="03d"){return "cloudy3.png";}
+  else if(icon ==="03n"){return "cloudy2.png"}
+  else if(icon ==="04d"){return "cloudy3.png";}
+  else if(icon ==="04n"){return "cloudy3.png";}
+  else if(icon ==="09d"){return "rain3.png";}
+  else if(icon ==="09n"){return "rain5.png";}
+  else if(icon ==="10d"){return "rain.png";}
+  else if(icon ==="10n"){return "rain.png";}
+  else if(icon ==="11d"){return "thunder.png";}
+  else if(icon ==="11n"){return "thunder.png";}
+  else if(icon ==="13d"){return "snow.png";}
+  else if(icon ==="13n"){return "snow.png";}
+  else if(icon ==="50d"){return "fog.png";}
+  else if(icon ==="50n"){return "foggynight.png";}
 }
 
 //**************************Auto-Complete text field************************
@@ -161,6 +237,15 @@ let day5 = document.getElementById("day5");
 let day6 = document.getElementById("day6");
 let day7 = document.getElementById("day7");
 
+//written forecast for individual days
+dayWrittenForecast1 = document.getElementById("daywrittenForecast1");
+dayWrittenForecast2 = document.getElementById("daywrittenForecast2");
+dayWrittenForecast3 = document.getElementById("daywrittenForecast3");
+dayWrittenForecast4 = document.getElementById("daywrittenForecast4");
+dayWrittenForecast5 = document.getElementById("daywrittenForecast5");
+dayWrittenForecast6 = document.getElementById("daywrittenForecast6");
+dayWrittenForecast7 = document.getElementById("daywrittenForecast7");
+
 //Selecting icons for individual days
 let iconday1 = document.getElementById("iconday1");
 let iconday2 = document.getElementById("iconday2");
@@ -187,24 +272,43 @@ let min7 = document.getElementById("min7");
 let max7 = document.getElementById("max7");
 
 
-//written forecast for individual days
-let dayWrittenForecast1 = document.getElementById("daywrittenForecast1");
-let dayWrittenForecast2 = document.getElementById("daywrittenForecast2");
-let dayWrittenForecast3 = document.getElementById("daywrittenForecast3");
-let dayWrittenForecast4 = document.getElementById("daywrittenForecast4");
-let dayWrittenForecast5 = document.getElementById("daywrittenForecast5");
-let dayWrittenForecast6 = document.getElementById("daywrittenForecast6");
-let dayWrittenForecast7 = document.getElementById("daywrittenForecast7");
-
-
 let citylookup = document.getElementById("citylookup");
 
-
+let detailedcityname = document.getElementById("detailedcityname");
+let detailedcitydate = document.getElementById("detailedcitydate");
+let suncon1 = document.getElementById("suncon1");
+let suncon2 = document.getElementById("suncon2");
+let sunrise = document.getElementById("sunrise");
+let detailedforecast = document.getElementById("detailedforecast");
+let sunset = document.getElementById("sunset");
+let detailedtempicon = document.getElementById("detailedtempicon");
+let detailedtemp = document.getElementById("detailedtemp");
+let precipitation = document.getElementById("chanceofrain");
+let humidity = document.getElementById("myhumidity");
+let wind = document.getElementById("mywind");
+let morningicon = document.getElementById("morningicon");
+let afternoonicon = document.getElementById("afternoonicon");
+let eveningicon = document.getElementById("eveningicon");
+let nighticon = document.getElementById("nighticon");
+let morningdescription = document.getElementById("morningdescription");
+let afternoondescription = document.getElementById("afternoondescription");
+let eveningdescription = document.getElementById("eveningdescription");
+let nightdescription = document.getElementById("nightdescription");
+let morningtemperature = document.getElementById("morningtemperature");
+let afternoontemperature = document.getElementById("afternoontemperature");
+let eveningtemperature = document.getElementById("eveningtemperature");
+let nighttemperature = document.getElementById("nighttemperature");
+backbtn = document.getElementById("back");
 
 
 /****************************************************************************/
-https://api.openweathermap.org/data/2.5/forecast/daily?lat=52.243107099999996&lon=-7.080930899999999&cnt=7&appid=4e97ba0d7abca630150a1baa78f9b2b6
-/******** Calling APIs ****************************/
+// https://api.openweathermap.org/data/2.5/forecast/daily?lat=52.243107099999996&lon=-7.080930899999999&cnt=7&appid=4e97ba0d7abca630150a1baa78f9b2b6
+
+
+/******** Calling APIs on load ****************************/
+
+// identifying longtitude and latitude to insert them in url source when calling api
+
 navigator.geolocation.getCurrentPosition(function(position) {
     const latitude = position.coords.latitude;
     const longtitude = position.coords.longitude;
@@ -214,33 +318,12 @@ navigator.geolocation.getCurrentPosition(function(position) {
 
     let key = '4e97ba0d7abca630150a1baa78f9b2b6';
     fetch("https://api.openweathermap.org/data/2.5/forecast/daily?lat="+latitude+"&lon="+longtitude+"&cnt=7&appid="+key)
-    .then(function(resp) { return resp.json() }) // Convert data to json
+    .then(function(resp) { return resp.json(); }) // Convert data to json
     .then(function(data) {
       console.log(data);
-      console.log("my current temperature is " + Math.round((data.list[0].temp.day)) + " degrees celsius");  //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+      console.log("my current temperature is " + Math.round(celsiusConverter(data.list[0].temp.day)) + " degrees celsius");  //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 
-      // Changing data in the HTML
-      mycity = data.city.name;
-      mycountry = data.city.country;
-      mytemperature = data.list[0].temp.day;  //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-      feelsLike = data.list[0].feels_like.day;  //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-      mywrittenForecast = data.list[0].weather[0].description;
-      mainForecast = data.list[0].weather[0].main;
-      icon = data.list[0].weather[0].icon;
-      let timezone = data.city.timezone;
-
-      console.log("Current forecast: " + mywrittenForecast + " and the time zone is " + timezone);
-
-      city.innerHTML = mycity;
-      country.innerHTML = mycountry;
-      temperature.innerHTML = celsiusConverter(mytemperature) + "&deg;C" ; //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-      writtenForecast.innerHTML = mainForecast + " - " + mywrittenForecast + " - feels like " + celsiusConverter(feelsLike) + "&deg;C"; //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-      iconForecast.src = "http://openweathermap.org/img/w/" + icon + ".png";
-
-
-      if(mywrittenForecast === "light rain"){
-
-      }
+// Figuring out the time and what day tomorrow will be and the subsequen ordering of days
 
       let date = new Date();
       let weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
@@ -255,9 +338,6 @@ navigator.geolocation.getCurrentPosition(function(position) {
       else{thisMinute = thisMinute;}
       let thisHour = date.getHours();
       if(thisHour < 10){thisHour = "0" + thisHour;}
-      else if(timezone === 10800){
-        thisHour += 8;
-      }
       else{thisHour = thisHour;}
 
 
@@ -283,6 +363,119 @@ navigator.geolocation.getCurrentPosition(function(position) {
     console.log(weekdays[3]);
     console.log(thisHour + ":" + thisMinute + " " + today + " - " + dayOfMonth + " " + thisMonth + " " + thisYear);
 
+
+    // ******************************************* Changing data in the HTML ******************************************
+    mycity = data.city.name;
+    mycountry = data.city.country;
+    mytemperature = data.list[0].temp.day;  
+    feelsLike = data.list[0].feels_like.day;  
+    mywrittenForecast = data.list[0].weather[0].description;
+    mainForecast = data.list[0].weather[0].main;
+    icon = data.list[0].weather[0].icon;  //main temp icon in innerContainer
+    timezone = data.city.timezone;
+
+
+    let individualday = document.querySelectorAll(".day");
+    for(let i = 0; i < individualday.length; i++){
+      individualday[i].addEventListener("click", function(){
+          innerContainer.style.display = "none";
+          detailedInfo.style.display = "grid";
+
+          fetch("https://api.openweathermap.org/data/2.5/onecall?lat=" + latitude + "&lon=" + longtitude + "&exclude=current,minutely,alerts&appid=" + key)
+          .then( function(response) { return response.json();} )
+          .then( function(hourlyinformation) {
+                console.log(hourlyinformation);
+
+                let weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+                let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+                mymainForecast = hourlyinformation.daily[i+1].temp.day;
+                mymaindescription = hourlyinformation.daily[i+1].weather[0].main;
+                mydetailedforecast = hourlyinformation.daily[i+1].weather[0].description;
+                let mydayicon = hourlyinformation.daily[i+1].weather[0].icon;
+                mydaymax = hourlyinformation.daily[i+1].temp.max;
+                mydaymin = hourlyinformation.daily[i+1].temp.min;
+                mynight = hourlyinformation.daily[i+1].temp.night;
+                myevening = hourlyinformation.daily[i+1].temp.eve;
+                mymorning = hourlyinformation.daily[i+1].temp.morn;
+                myafternoon = hourlyinformation.daily[i+1].temp.day;
+                mypressure = hourlyinformation.daily[i+1].pressure;
+                myhumidity = hourlyinformation.daily[i+1].humidity;
+                myprecipitation = hourlyinformation.daily[i+1].pop * 100;
+                mywinddirection = hourlyinformation.daily[i+1].wind;
+                percentageCloudCover = hourlyinformation.daily[i+1].clouds;
+                mysunrisedt = hourlyinformation.daily[i+1].sunrise * 1000;
+                mysunsetdt = hourlyinformation.daily[i+1].sunset * 1000;
+                mydaytimestamp = hourlyinformation.daily[i+1].dt * 1000;
+                mydaytimestamp2 = new Date(mydaytimestamp);
+                let myweekday = mydaytimestamp2.getDay();
+                mydayday = mydaytimestamp2.getDate();
+                mydayMonth = mydaytimestamp2.getMonth();
+                mydayHours = mydaytimestamp2.getHours();
+                mydayMinutes = mydaytimestamp2.getMinutes();
+                if(mydayMinutes < 10){mydayMinutes = "0" + mydayMinutes;}
+                else{mydayMinutes = mydayMinutes;}
+
+                detailedtemp.innerHTML = celsiusConverter(mydaymax) + " / " + celsiusConverter(mydaymin) + " &deg;C";
+                precipitation.innerHTML = " Chance of rain: " + myprecipitation + "%";
+                humidity.innerHTML = "Humidity: " + myhumidity;
+                wind.innerHTML = " Wind Speed: " + data.list[i+1].wind_speed + " m/s";
+                detailedcityname.innerHTML = mycity + ", " + mycountry;
+                detailedcitydate.innerHTML = weekdays[myweekday] + " - " + mydayday + " " + months[mydayMonth] + " " + thisYear;
+                sunrisetime = new Date(mysunrisedt);
+                document.getElementById("sunrisetime").innerHTML = " 0" + sunrisetime.getHours() + ":" + sunrisetime.getMinutes() + " am";
+                sunsettime = new Date(mysunsetdt);
+                document.getElementById("sunsettime").innerHTML = sunsettime.getHours() + ":" + sunsettime.getMinutes() + " pm";
+                detailedforecast.innerHTML = mymaindescription + " - " + mydetailedforecast;
+                detailedtemp.innerHTML = celsiusConverter(mydaymax) + "&deg;C";
+                // precipitation.innerHTML = "Precipitation: " + data.list[0].rain + " mm";
+                humidity.innerHTML = " Humidity: " + myhumidity + "%";
+                wind.innerHTML = "Wind Speed: " + hourlyinformation.daily[i+1].wind_speed + " m/s";
+                detailedtempicon.src = "weathercons/" + iconMaker(mydayicon); //icon
+                // morningicon.src = iconMaker(hourlyinformation.hourly[9].weather[0].icon);
+                // afternoonicon.src = iconMaker(hourlyinformation.hourly[13].weather[0].icon); //icon
+                // eveningicon.src = iconMaker(hourlyinformation.hourly[17].weather[0].icon); //icon
+                // nighticon.src = iconMaker(hourlyinformation.hourly[23].weather[0].icon); //icon
+                morningtemperature.innerHTML = celsiusConverter(mymorning) + "&deg;C";
+                afternoontemperature.innerHTML = celsiusConverter(myafternoon) + "&deg;C";
+                eveningtemperature.innerHTML = celsiusConverter(myevening) + "&deg;C";
+                nighttemperature.innerHTML = celsiusConverter(mynight) + "&deg;C";
+                morningdescription.innerHTML = hourlyinformation.hourly[9].weather[0].description;
+                afternoondescription.innerHTML = hourlyinformation.hourly[13].weather[0].description;
+                eveningdescription.innerHTML = hourlyinformation.hourly[17].weather[0].description;
+                nightdescription.innerHTML = hourlyinformation.hourly[23].weather[0].description;
+
+                backbtn.addEventListener("click", function(){
+                  detailedInfo.style.display = "none";
+                  innerContainer.style.display = "grid";
+                });
+
+
+              })
+
+          .catch( function(error) { console.log(error);} )
+});
+}
+
+    detailedcityname.innerHTML = mycity + ", " + mycountry;
+    detailedcitydate.innerHTML = thisHour + ":" + thisMinute + " - " + today + " - " + dayOfMonth + " " + thisMonth + " " + thisYear;
+    suncon1.src;
+    suncon2.src;
+    sunrise = 0;
+    sunset = 0
+
+
+
+
+    console.log("today's rain is: " + myrainfall + "mm");
+
+    console.log("Current forecast: " + mywrittenForecast + " and the time zone is " + timezone);
+
+    city.innerHTML = mycity;
+    country.innerHTML = mycountry;
+    temperature.innerHTML = celsiusConverter(mytemperature) + "&deg;C" ; 
+    writtenForecast.innerHTML = mainForecast + " - " + mywrittenForecast + " - feels like " + celsiusConverter(feelsLike) + "&deg;C"; 
+
     day1.innerHTML = "Tomorrow";
     day2.innerHTML = weekdays[secondday];
     day3.innerHTML = weekdays[thirdday];
@@ -290,32 +483,42 @@ navigator.geolocation.getCurrentPosition(function(position) {
     day5.innerHTML = weekdays[fifthday];
     day6.innerHTML = weekdays[sixthday];
 
-    let myicon1 = data.list[1].weather[0].icon;
-    let myicon2 = data.list[2].weather[0].icon;
-    let myicon3 = data.list[3].weather[0].icon;
-    let myicon4 = data.list[4].weather[0].icon;
-    let myicon5 = data.list[5].weather[0].icon;
-    let myicon6 = data.list[6].weather[0].icon;
+    dayWrittenForecast1.innerHTML = data.list[1].weather[0].description;
+    dayWrittenForecast2.innerHTML = data.list[2].weather[0].description;
+    dayWrittenForecast3.innerHTML = data.list[3].weather[0].description;
+    dayWrittenForecast4.innerHTML = data.list[4].weather[0].description;
+    dayWrittenForecast5.innerHTML = data.list[5].weather[0].description;
+    dayWrittenForecast6.innerHTML = data.list[6].weather[0].description;
 
-    iconday1.src= "http://openweathermap.org/img/w/" + myicon1 + ".png";
-    iconday2.src= "http://openweathermap.org/img/w/" + myicon2 + ".png";
-    iconday3.src= "http://openweathermap.org/img/w/" + myicon3 + ".png";
-    iconday4.src= "http://openweathermap.org/img/w/" + myicon4 + ".png";
-    iconday5.src= "http://openweathermap.org/img/w/" + myicon5 + ".png";
-    iconday6.src= "http://openweathermap.org/img/w/" + myicon6 + ".png";
+
+    myicon1 = data.list[1].weather[0].icon;
+    myicon2 = data.list[2].weather[0].icon;
+    myicon3 = data.list[3].weather[0].icon;
+    myicon4 = data.list[4].weather[0].icon;
+    myicon5 = data.list[5].weather[0].icon;
+    myicon6 = data.list[6].weather[0].icon;
 
     mymin1 = data.list[1].temp.min;
     mymax1 = data.list[1].temp.max;
-    mymin2 = data.list[2].temp.max;
+    mymin2 = data.list[2].temp.min;
     mymax2 = data.list[2].temp.max;
-    mymin3 = data.list[3].temp.max;
+    mymin3 = data.list[3].temp.min;
     mymax3 = data.list[3].temp.max;
-    mymin4 = data.list[4].temp.max;
+    mymin4 = data.list[4].temp.min;
     mymax4 = data.list[4].temp.max;
-    mymin5 = data.list[5].temp.max;
+    mymin5 = data.list[5].temp.min;
     mymax5 = data.list[5].temp.max;
-    mymin6 = data.list[6].temp.max;
+    mymin6 = data.list[6].temp.min;
     mymax6 = data.list[6].temp.max;
+
+    // iconForecast.src = "http://openweathermap.org/img/wn/" + icon + "@2x.png"; //icon
+    iconForecast.src = "weathercons/" + iconMaker(icon);
+    iconday1.src= "weathercons/" + iconMaker(myicon1); //icon
+    iconday2.src= "weathercons/" + iconMaker(myicon2); //icon
+    iconday3.src= "weathercons/" + iconMaker(myicon3); //icon
+    iconday4.src= "weathercons/" + iconMaker(myicon4); //icon
+    iconday5.src= "weathercons/" + iconMaker(myicon5); //icon
+    iconday6.src= "weathercons/" + iconMaker(myicon6); //icon
 
     min1.innerHTML = celsiusConverter(mymin1);
     max1.innerHTML = celsiusConverter(mymax1) + " / ";
@@ -330,12 +533,49 @@ navigator.geolocation.getCurrentPosition(function(position) {
     min6.innerHTML = celsiusConverter(mymin6);
     max6.innerHTML = celsiusConverter(mymax6) + " / ";
 
-    dayWrittenForecast1.innerHTML = data.list[1].weather[0].description;
-    dayWrittenForecast2.innerHTML = data.list[2].weather[0].description;
-    dayWrittenForecast3.innerHTML = data.list[3].weather[0].description;
-    dayWrittenForecast4.innerHTML = data.list[4].weather[0].description;
-    dayWrittenForecast5.innerHTML = data.list[5].weather[0].description;
-    dayWrittenForecast6.innerHTML = data.list[6].weather[0].description;
+    let flashybtn = document.getElementById("fahcheck");
+
+    flashybtn.addEventListener("change", function(){
+
+      if(flashybtn.checked === true){
+
+        writtenForecast.innerHTML = mainForecast + " - " + mywrittenForecast + " - feels like " + fahrenheitConverter(feelsLike) + "&deg;F";
+        temperature.innerHTML = fahrenheitConverter(mytemperature) + "&deg;F";
+        min1.innerHTML = fahrenheitConverter(mymin1);
+        max1.innerHTML = fahrenheitConverter(mymax1) + " / ";
+        min2.innerHTML = fahrenheitConverter(mymin2);
+        max2.innerHTML = fahrenheitConverter(mymax2) + " / ";
+        min3.innerHTML = fahrenheitConverter(mymin3);
+        max3.innerHTML = fahrenheitConverter(mymax3) + " / ";
+        min4.innerHTML = fahrenheitConverter(mymin4);
+        max4.innerHTML = fahrenheitConverter(mymax4) + " / ";
+        min5.innerHTML = fahrenheitConverter(mymin5);
+        max5.innerHTML = fahrenheitConverter(mymax5) + " / ";
+        min6.innerHTML = fahrenheitConverter(mymin6);
+        max6.innerHTML = fahrenheitConverter(mymax6) + " / ";
+
+      }
+
+      if(flashybtn.checked === false){
+
+        temperature.innerHTML = celsiusConverter(mytemperature) + "&deg;C";
+        min1.innerHTML = celsiusConverter(mymin1);
+        max1.innerHTML = celsiusConverter(mymax1) + " / ";
+        min2.innerHTML = celsiusConverter(mymin2);
+        max2.innerHTML = celsiusConverter(mymax2) + " / ";
+        min3.innerHTML = celsiusConverter(mymin3);
+        max3.innerHTML = celsiusConverter(mymax3) + " / ";
+        min4.innerHTML = celsiusConverter(mymin4);
+        max4.innerHTML = celsiusConverter(mymax4) + " / ";
+        min5.innerHTML = celsiusConverter(mymin5);
+        max5.innerHTML = celsiusConverter(mymax5) + " / ";
+        min6.innerHTML = celsiusConverter(mymin6);
+        max6.innerHTML = celsiusConverter(mymax6) + " / ";
+
+      }
+
+
+    });
 
     })
 
@@ -354,15 +594,25 @@ inputVal.addEventListener("click", function(){
 this.placeholder = "";
 });
 
+
+/****************************************** Submit button **********************************/
+
+
 submit.addEventListener("click", function(){
   //fetching simple current weather API so as to extract coordinates and place them into next API call
   fetch("https://api.openweathermap.org/data/2.5/weather?q="+inputVal.value+"&appid=4e97ba0d7abca630150a1baa78f9b2b6")
   .then(function(response){return response.json()})
   .then(function(data){
     console.log(data);
+
     let newLongtitude = data.coord.lon;
     let newLatitude = data.coord.lat;
-    console.log(newLongtitude);
+    mytemperature = data.main.temp;  
+    let utcstamp = data.dt;
+    feelsLike = data.main.feels_like;  
+    mywrittenForecast = data.weather[0].description;
+    mainForecast = data.weather[0].main;
+    icon = data.weather[0].icon;
 
     //fetching detailed json that has daily and hourly updates
     fetch("https://api.openweathermap.org/data/2.5/forecast/daily?lat="+newLatitude+"&lon="+newLongtitude+"&cnt=7&appid="+key)
@@ -370,26 +620,87 @@ submit.addEventListener("click", function(){
     .then(function(database){
       console.log(database);
 
+
+      let mycitydate = new Date(utcstamp * 1000);
+      let weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+      let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+      let weekdayNumber = mycitydate.getDay(); //6
+      let mycitytoday = weekdays[mycitydate.getDay()]; //what day of the week is today
+      let mycitythisMonth = months[mycitydate.getMonth()]; //what month are we in now
+      let mycitydayOfMonth = mycitydate.getDate();
+      let mycitythisYear = mycitydate.getFullYear();
+      let mycitythisMinute = mycitydate.getMinutes();
+      if(mycitythisMinute < 10){mycitythisMinute = "0" + mycitythisMinute;}
+      else{mycitythisMinute = mycitythisMinute;}
+      let mycitythisHour = mycitydate.getHours();
+      if(mycitythisHour < 10){mycitythisHour = "0" + mycitythisHour;}
+      else if(timezone === 10800){
+        thisHour += 8;
+      }
+      else{mycitythisHour = mycitythisHour;}
+
+      console.log("ALERT MY CITY HOUR IS: " + mycitythisHour);
+
+      timeAndDate.innerHTML = mycitythisHour + ":" + mycitythisMinute + " - " + mycitytoday + " - " + mycitydayOfMonth + " " + mycitythisMonth + " " + mycitythisYear;
+
+
+      let firstday = weekdayNumber + 1;
+      let secondday = weekdayNumber + 2;
+      let thirdday = weekdayNumber + 3;
+      let fourthday = weekdayNumber + 4;
+      let fifthday = weekdayNumber + 5;
+      let sixthday = weekdayNumber + 6;
+      let seventhday = weekdayNumber + 7;
+
+    if(firstday > 6){firstday -=7;}
+    if(secondday > 6){secondday -=7;}
+    if(thirdday > 6){thirdday -=7;}
+    if(fourthday > 6){fourthday -=7;}
+    if(fifthday > 6){fifthday -=7;}
+    if(sixthday > 6){sixthday -=7;}
+    if(seventhday > 6){seventhday -=7;}
+
+    console.log(weekdays[3]);
+    console.log(mycitythisHour + ":" + mycitythisMinute + " " + mycitytoday + " - " + mycitydayOfMonth + " " + mycitythisMonth + " " + mycitythisYear);
+
+    day1.innerHTML = "Tomorrow";
+    day2.innerHTML = weekdays[secondday];
+    day3.innerHTML = weekdays[thirdday];
+    day4.innerHTML = weekdays[fourthday];
+    day5.innerHTML = weekdays[fifthday];
+    day6.innerHTML = weekdays[sixthday];
+
+      console.log(newLongtitude);
+
+
       mycity = database.city.name;
       mycountry = database.city.country;
-      mytemperature = database.list[0].temp.day;  //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-      feelsLike = database.list[0].feels_like.day;  //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-      mywrittenForecast = database.list[0].weather[0].description; //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-      icon = database.list[0].weather[0].icon;
-      mainForecast = database.list[0].weather[0].main;
-      let timeZone = database.city.timezone;
 
-      console.log("The time zone is: " + timeZone);
-      if(mainForecast == "Clouds"){
-        document.getElementById("vidbg").src = "imagesandvideos/rain-night.mp4";
-      }
+
+      let timeZone = database.city.timezone;
+      mydaymax = database.list[0].temp.max;
+      mydaymin = database.list[0].temp.min;
+      mynight = database.list[0].temp.night;
+      myevening = database.list[0].temp.eve;
+      mymorning = database.list[0].temp.morn;
+      mypressure = database.list[0].pressure;
+      myhumidity = database.list[0].humidity;
+      mysunrise = database.list[0].sunrise;
+      mysunset = database.list[0].sunset;
+      myrainfall = database.list[0].rain;
+      mywinddirection = database.list[0].deg;
+      percentageCloudCover = database.list[0].clouds;
+
+      console.log(mycity + "'s utc time stamp is " + utcstamp);
+
+      console.log("Mate Mate!!!! The wind direction in " + mycity + " is: " + mywinddirection);
 
 
       city.innerHTML = mycity;
       country.innerHTML = mycountry;
       temperature.innerHTML = celsiusConverter(mytemperature) + "&deg;C" ; //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
       writtenForecast.innerHTML = mainForecast + " - " + mywrittenForecast + " - feels like " + celsiusConverter(feelsLike) + "&deg;C"; //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-      iconForecast.src = "http://openweathermap.org/img/w/" + icon + ".png";
+      iconForecast.src = "weathercons/" + iconMaker(icon);
 
 
       myicon1 = database.list[1].weather[0].icon;
@@ -399,25 +710,25 @@ submit.addEventListener("click", function(){
       myicon5 = database.list[5].weather[0].icon;
       myicon6 = database.list[6].weather[0].icon;
 
-      iconday1.src= "http://openweathermap.org/img/w/" + myicon1 + ".png";
-      iconday2.src= "http://openweathermap.org/img/w/" + myicon2 + ".png";
-      iconday3.src= "http://openweathermap.org/img/w/" + myicon3 + ".png";
-      iconday4.src= "http://openweathermap.org/img/w/" + myicon4 + ".png";
-      iconday5.src= "http://openweathermap.org/img/w/" + myicon5 + ".png";
-      iconday6.src= "http://openweathermap.org/img/w/" + myicon6 + ".png";
+      iconday1.src= "weathercons/" + iconMaker(myicon1);
+      iconday2.src= "weathercons/" + iconMaker(myicon2);
+      iconday3.src= "weathercons/" + iconMaker(myicon3);
+      iconday4.src= "weathercons/" + iconMaker(myicon4);
+      iconday5.src= "weathercons/" + iconMaker(myicon5);
+      iconday6.src= "weathercons/" + iconMaker(myicon6);
 
-      min1.innerHTML = celsiusConverter(database.list[1].temp.min);
-      max1.innerHTML = celsiusConverter(database.list[1].temp.max) + " / ";
-      min2.innerHTML = celsiusConverter(database.list[2].temp.min);
-      max2.innerHTML = celsiusConverter(database.list[2].temp.max) + " / ";
-      min3.innerHTML = celsiusConverter(database.list[3].temp.min);
-      max3.innerHTML = celsiusConverter(database.list[3].temp.max) + " / ";
-      min4.innerHTML = celsiusConverter(database.list[4].temp.min);
-      max4.innerHTML = celsiusConverter(database.list[4].temp.max) + " / ";
-      min5.innerHTML = celsiusConverter(database.list[5].temp.min);
-      max5.innerHTML = celsiusConverter(database.list[5].temp.max) + " / ";
-      min6.innerHTML = celsiusConverter(database.list[6].temp.min);
-      max6.innerHTML = celsiusConverter(database.list[6].temp.max) + " / ";
+      min1.innerHTML = celsiusConverter(database.list[0].temp.min);
+      max1.innerHTML = celsiusConverter(database.list[0].temp.max) + " / ";
+      min2.innerHTML = celsiusConverter(database.list[1].temp.min);
+      max2.innerHTML = celsiusConverter(database.list[1].temp.max) + " / ";
+      min3.innerHTML = celsiusConverter(database.list[2].temp.min);
+      max3.innerHTML = celsiusConverter(database.list[2].temp.max) + " / ";
+      min4.innerHTML = celsiusConverter(database.list[3].temp.min);
+      max4.innerHTML = celsiusConverter(database.list[3].temp.max) + " / ";
+      min5.innerHTML = celsiusConverter(database.list[4].temp.min);
+      max5.innerHTML = celsiusConverter(database.list[4].temp.max) + " / ";
+      min6.innerHTML = celsiusConverter(database.list[5].temp.min);
+      max6.innerHTML = celsiusConverter(database.list[5].temp.max) + " / ";
 
       dayWrittenForecast1.innerHTML = database.list[1].weather[0].description;
       dayWrittenForecast2.innerHTML = database.list[2].weather[0].description;
@@ -426,8 +737,9 @@ submit.addEventListener("click", function(){
       dayWrittenForecast5.innerHTML = database.list[5].weather[0].description;
       dayWrittenForecast6.innerHTML = database.list[6].weather[0].description;
 
-      timeAndDate.innerHTML = citythisHour + ":" + citythisMinute + " " + citytoday + " - " + citydayOfMonth + " " + citythisMonth + " " + citythisYear;
+      timeAndDate.innerHTML = mycitythisHour + ":" + mycitythisMinute + " " + mycitytoday + " - " + mycitydayOfMonth + " " + mycitythisMonth + " " + mycitythisYear;
 
+// inside the submit button, when checkbox (flashybutton) is pressed, convert cel to fahrenheit and vice versa
 
       let flashybtn = document.getElementById("fahcheck");
 
@@ -435,7 +747,7 @@ submit.addEventListener("click", function(){
 
         if(flashybtn.checked === true){
 
-          writtenForecast.innerHTML = mainForecast + " - " + mywrittenForecast + " - feels like " + fahrenheitConverter(feelsLike) + "&deg;C";
+          writtenForecast.innerHTML = mainForecast + " - " + mywrittenForecast + " - feels like " + fahrenheitConverter(feelsLike) + "&deg;F";
           temperature.innerHTML = fahrenheitConverter(mytemperature) + "&deg;F";
           min1.innerHTML = fahrenheitConverter(mymin1);
           max1.innerHTML = fahrenheitConverter(mymax1) + " / ";
@@ -471,7 +783,7 @@ submit.addEventListener("click", function(){
         }
 
 
-      });
+      }); /*************** end of flashybutton eventlistener inside the submit button scope ***********/
 
 
 
@@ -486,9 +798,10 @@ submit.addEventListener("click", function(){
     console.log(error);
 
   })
-});
+}); /************** End of submit button *****************/
 
-//******************************Fahrenheit checkbox ********************//
+
+//******************************Fahrenheit checkbox on 'home' screen ********************//
 
 let flashybtn = document.getElementById("fahcheck");
 
@@ -533,31 +846,9 @@ flashybtn.addEventListener("change", function(){
   }
 
 
-});
+}); /***** End of Flashy button even listener outside of submit button scope ********/
 
-let dayinfo = document.querySelectorAll(".day");
-
-for(let i = 0; i < dayinfo.length; i++){
-    dayinfo[i].addEventListener("click", function(){
-    innerContainer.classList.remove("swing-top-fwd");
-
-    // innerContainer.classList.add("fadeSlowly");
-    detailedInfo.classList.add("slide-fwd-center");
-    // detailedInfo.classList.add("appearSlowly");
-
-});
+if(mainForecast == "Rain"){
+  document.getElementById("vidbg").setAttribute("src", videoBackgrounds[3]);
 }
-
-// const options = {
-//   appId: 'plQ8XT7L8MCL',
-//   apiKey: '4660028f73d367f9c1e6a1f7ac36e2f1',
-//   container: document.querySelector("#input-styling-address input")
-//   // ...
-// };
-//
-// let placesAutocomplete = places({
-//   appId: 'plQ8XT7L8MCL',
-//   apiKey: '4660028f73d367f9c1e6a1f7ac36e2f1',
-//   container: document.querySelector("#input-styling-address input")
-//   });
-// places(options);
+else{document.getElementById("vidbg").src = videoBackgrounds[2];}
