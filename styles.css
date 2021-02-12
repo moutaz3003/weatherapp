@@ -4,12 +4,8 @@
   box-sizing: border-box;
 }
 
-#myVideo {
-  position: fixed;
-  right: 0;
-  bottom: 0;
-  min-width: 100%;
-  min-height: 100%;
+body{
+
 }
 
 .outerContainer {
@@ -22,6 +18,53 @@
   }
 
 
+#myVideo {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+}
+
+@keyframes transparentBG {
+0%{
+  opacity: 0.9;
+}
+50%{
+  opacity: 0.7;
+}
+100%{
+  opacity: 0.9;
+}
+}
+
+@keyframes smoothappearance {
+0%{
+  opacity: 0;
+}
+50%{
+  opacity: 0.7;
+}
+100%{
+  opacity: 0.9;
+}
+}
+
+@keyframes smoothdisappearance {
+0%{
+  opacity: 0.9;
+}
+50%{
+  opacity: 0.7;
+}
+100%{
+  opacity: 0;
+}
+}
+
+
+
+
 /***************************** Detailed Info Container ***********************/
 
   .detailedInfo{
@@ -31,79 +74,196 @@
     font-family: 'Quicksand', sans-serif;
     box-sizing: border-box;
     margin: 0 auto;
-    width: 90vw;
-    height: 90vh;
+    width: 80vw;
+    height: 86vh;
     border-radius: 50px;
     border: solid 1px #b7acb7;
     display: none;
     grid-gap: 1px;
-    grid-template-columns: repeat(7, 1fr);
-    grid-template-rows: 1.5fr 2fr 1fr;
-    grid-template-areas:". . . . . . ."
-                        "day1 day2 day3 day4 day5 day6 day7"
+    font-size: 0.9em;
+    padding: 20px;
+    grid-template-rows: 2fr 2fr 2fr 2fr 6fr 2fr;
+    grid-template-areas: "city"
+                        "date sunriseIcon sunrise"
+                        "forecast sunseticon sunset"
+                        "weathercon temp precHumWin"
+                        "daily"
     position: absolute;
+    text-align: center;
+    animation: smoothappearance 3s ease-in-out;
+  }
+
+  #detailedtempicon{
+    padding-bottom: 20px;
+    width: 125px;
+    height: 130px;
+    position: relative;
+    left: 30px;
+  }
+
+  #detailedcity{
+    grid-area: city;
+    grid-row: 1/2;
+    grid-column: 1/2;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  #detailedcitydate{
+    font-weight: bold;
+    color: #66d5f9;
+    font-size: 1.3em;
+  }
+
+  #back{
+    text-align: center;
+    color: orange;
+    font-size: 1.6em;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  #back:hover{
+    color: #f7d7a0;
+  }
+
+  #backbtn{
+    width: 30px;
+    height: 30px;
+    display: flex;
+  }
+
+  .detaileditem{
+    padding: 5px;
+    text-align: left;
+  }
+
+  .detailedinneritem{
+  text-align: center;
+  }
+
+  #suncon1, #suncon2{
+    height: 40px;
+    width: 40px;
+    margin-right: 5px;
+  }
+
+  #precip{
+    height: 25px;
+    width: 25px;
+    margin-right: 15px;
+  }
+
+  #winds{
+    height: 25px;
+    width: 25px;
+    margin-right: 20px;
+  }
+
+  #humid{
+    height: 25px;
+    width: 25px;
+    margin-right: 20px;
+  }
+
+  #detaileddate-suncon-sunrise{
+    grid-area: date sunriseIcon sunrise;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-row: 2/3;
+    grid-column: 1/2;
+  }
+
+  #detailedforecast-suncon-sunset{
+    grid-area: forecast sunseticon sunset;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-row: 3/4;
+    grid-column: 1/2;
+  }
+
+#icon-temp-precHumWincList{
+  grid-area: weathercon temp precHumWin;
+  display: grid;
+  grid-row: 4/5;
+  grid-column: 1/2;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+#detailedforecast{
+  font-size: 1.2em;
+  text-align: left;
+  margin-bottom: 20px;
+}
+
+#daily{
+  grid-area: daily;
+  grid-row: 5/6;
+  grid-column: 1/2;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-areas: "morn gap noon gap eve gap night"
+}
+
+
+  #morn{
+
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    text-align: center;
+    font-weight: bold;
+    color: orange;
+  }
+
+  #morningicon, #afternoonicon,
+  #eveningicon, #nighticon{
+    width: 50px;
+    height: 50px;
+  }
+
+  #noon{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     text-align: center;
   }
 
-  #detailedInfoItem{
-    padding: 10px;
+  #noon img{
+    margin: 0 auto;
   }
 
-  #detailedInfoItem:hover{
-    background-color: white;
-    position: relative;
-    bottom: 10px;
+  #eve{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    text-align: center;
   }
 
-  #detailedInfo-item:hover{
-    background-color: white;
-    opacity: 0.5;
+  #night{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
   }
 
-  #detailedInfo-day1{
-    grid-area: day1;
-    grid-column:1/2
-    grid-row: 2/3;
+  #precHumWincList{
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr;
   }
 
-  #detailedinfo-day2{
-    grid-area: day2;
-    grid-column:2/3;
-    grid-row: 2/3;
-  }
-  #detailedinfo-day3{
-    grid-area: day3;
-    grid-column:3/4;
-    grid-row: 2/3;
-  }
-  #detailedinfo-day4{
-    grid-area: day4;
-    grid-column:4/5
-    grid-row: 2/3;
-  }
-  #detailedinfo-day5{
-    grid-area: day5;
-    grid-column:5/6;
-    grid-row: 2/3;
-  }
-  #detailedinfo-day6{
-    grid-area: day6;
-    grid-column:6/7;
-    grid-row: 2/3;
-  }
-  #detailedinfo-day7{
-    grid-area: day6;
-    grid-column:7/8;
-    grid-row: 2/3;
-  }
+ #detailedcityname{
+   font-size: 1.9em;
+   color: orange;
+   font-weight: bold;
+ }
 
-  #detailedinfo-day7:hover{
-    grid-area: day6;
-    grid-column:7/8;
-    grid-row: 2/3;
-  }
+ #detailedtemp{
+   font-size: 3em;
+   font-weight: bold;
+   padding-top: 10px;
+   /* position: relative;
+   right: 120px;
+   top: 20px; */
+   color: orange;
+ }
 
 
+/***************** Key Frames ***********/
 
 @keyframes slide-bck-center{
   0%{
@@ -209,16 +369,19 @@
     background: rgb(0,0,0);
     background: linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0.85) 50%, rgba(0,0,0,1) 100%);
     border: solid 1px #b7acb7;
-    opacity: 0.999;
+    opacity: 0.9;
     color: white;
     font-family: 'Quicksand', sans-serif;
     box-sizing: border-box;
-    width: 90vw;
-    height: 90vh;
+    width: 80vw;
+    height: 86vh;
+    padding: 20px;
     border-radius: 40px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+    animation: transparentBG 6s ease-in-out;
     z-index: 2;
     display: grid; /* CHANGE THIS TO GRID */
-    grid-template-rows: repeat(10, 1fr);
+    grid-template-rows: repeat(10, 1fr) 2fr;
     /* grid-template-columns: repeat(9, 1fr); */
 
     grid-template-areas: "cityTempCountry"
@@ -234,14 +397,65 @@
 
   }
 
-  @media only screen and (max-width: 600px){
+  @media only screen and (max-width: 375px){
     h1{font-size: 1.5em;}
-    body {font-size: 0.8em;}
+    body {font-size: 0.6em;}
+    .flashybtn{
+      width: 50px;
+    }
+
+    #myVideo {
+      position: fixed;
+      right: 0;
+      bottom: 0;
+      width: 100vw;
+      height: 100vh;
+    }
+
+
     .innerContainer{
-      grid-template-areas: "cityTempCountry writtenForecast"
+      width: 100vw;
+      height: 100vh;
+      border-radius: 0;
+      text-align: center;
+      margin: 0 auto;
+      grid-template-rows: repeat(10, 1fr);
+      grid-template-areas: "cityTempCountry"
+      "writtenForecast"
       "iconForecast"
     }
+
+    /* .card1, .card2, .card3,
+    .card4, .card5, .card6,
+    .card7{
+      padding-left: 50px;
+      height: 100px;
+      width: 100px;
+    } */
+
+    #iconday1, #iconday2, #iconday3,
+    #iconday4, #iconday5, #iconday6,
+    #iconday7{
+      padding: 0;
+      width: 100px;
+      height: 100px;
+    }
+
+    .cityTempCountry{
+
+      margin-top: 140px;
+      width: screen.width;
+    }
+
+    #myInput{
+      padding: 5px;
+      justify-content: center;
+      font-weight: bold;
+    }
+
   }
+
+  /******************* End media queries for smaller screens *************/
 
   .griditem{
     align-items: center;
@@ -258,7 +472,8 @@
   grid-template-columns: 1fr 1fr 1fr;
   max-width: 90vw;
   text-align: center;
-  margin-top: 10px;
+  margin-top: 15px;
+  padding-left: 15px;
 }
 
 
@@ -267,6 +482,7 @@
   font-weight: bold;
   text-align: right;
   padding-right: 5px;
+  margin-left: 10px;
 }
 
 #temperature{
@@ -292,6 +508,11 @@
   text-align: center;
 }
 
+.fahcheckbox{
+  padding-right: 15px;
+  padding-top: 5px;
+}
+
 .timeAndDate{
   font-size: 0.9em;
   color: #62CDEF;
@@ -305,6 +526,7 @@
   grid-row: 3/4;
   max-width: 90vw;
   text-align: center;
+  padding: 5px;
 }
 
 
@@ -315,13 +537,26 @@
   grid-row: 4/5;
   text-align: center;
   max-width: 90vw;
+  padding: 5px;
 }
+
+.iconForecast img{
+  height: 85px;
+  width: 75px;
+  padding-bottom: 20px;
+}
+
+
 
 #header{
   font-weight: bold;
   color: #66d5f9;
-  text-align: center;
   border: none;
+}
+
+#header p{
+  text-align: left;
+  margin: 0;
 }
 
 #dayMinMax6{
@@ -335,6 +570,11 @@
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   max-width: 90vw;
   text-align: center;
+  padding: 5px 0 10px 0;
+}
+
+#day1, #day2, #day3, #day4, #day5, #day6{
+  padding-top: 4px;
 }
 
 .day:hover{
@@ -348,7 +588,6 @@
 }
 
 .days p{
-  padding: 5px;
   font-weight: bold;
   color: orange;
 }
@@ -364,6 +603,8 @@
 
 .dayIcons img{
   margin: 0 auto;
+  height: 50px;
+  width: 50px;
 }
 
 .dayMinMax{
@@ -373,7 +614,7 @@
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   text-align: center;
   max-width: 90vw;
-  padding-top: 0;
+  padding: 5px;
 }
 
 .dayMinMax p{
@@ -388,12 +629,12 @@
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   text-align: center;
   max-width: 90vw;
-  margin-bottom: 30px;
+  padding: 10px;
+  text-align: center;
 }
 
 .daywrittenForecast p{
-  text-align: center;
-  margin: 0 auto;
+
 }
 
 .dayIcons{
@@ -402,13 +643,14 @@
 
 
 .dayWrittenForecast p{
-  padding: 5px;
+
 }
 
 .searchLocation{
   grid-area: searchLocation;
   grid-row: 9/10;
   text-align: center;
+  padding: 25px;
 }
 
 input[type=text]{
@@ -481,7 +723,7 @@ label{
 }
 
 #grid-item{
-  padding: 10px;
+
 }
 
 #col1{
@@ -578,6 +820,7 @@ input[type=submit] {
 
 #header{
   font-weight: bolder;
+  padding: 5px;
 }
 
 /********************* Button Fahrenheit **********/
