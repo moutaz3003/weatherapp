@@ -7,10 +7,7 @@
   <link rel="stylesheet" href="styles.css">
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300&display=swap" rel="stylesheet">
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-  <link rel="manifest" href="/site.webmanifest">
+
   <title>Responsive Weather App</title>
 </head>
 <body>
@@ -18,27 +15,110 @@
   <div class="outerContainer">
 
   <video autoplay muted loop id="myVideo">
-    <source id="vidbg" src="imagesandvideos/rain2.mp4" type="video/mp4">
+    <source id="vidbg" src="https://assets.mixkit.co/videos/preview/mixkit-gloomy-forest-full-of-trees-during-a-rainy-afternoon-22729-large.mp4" type="video/mp4">
   </video>
 
       <div class="detailedInfo">
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div> </div>
-        <div id="detailedInfo-item">day1</div>
-        <div id="detailedInfo-item">day2</div>
-        <div id="detailedInfo-item">day3</div>
-        <div id="detailedInfo-item">day4</div>
-        <div id="detailedInfo-item">day5</div>
-        <div id="detailedInfo-item">day6</div>
-        <div id="detailedInfo-item">day7</div>
+
+        <div class="detaileditem" id="detailedcity">
+          <div id="detailedcityname">city</div>
+          <div id="gap"> <h1 id="back"> < Back</h1> </div>
+          <div>
+            <!-- <div id="col3" class="fahcheckbox">
+              <h1 id="cel">&deg;C</h1>
+                <input id="fahcheck" type="checkbox" name="" value="">
+              <h1 id="fah">&deg;F</h1>
+          </div> -->
+        </div>
+      </div>
+
+        <div id="detaileddate-suncon-sunrise" class="detaileditem">
+          <div id="detailedcitydate">Date</div>
+          <div></div>
+          <div id="sunrise"><img id="suncon1" src="weathercons/sunrise.png" alt=""> Sunrise: <span id="sunrisetime"></span></div>
+        </div>
+
+        <div id="detailedforecast-suncon-sunset" class="detaileditem">
+          <div id="detailedforecast">detailed forecase</div>
+          <div></div>
+          <div id="sunset"><img id="suncon2" src="weathercons/sunset.png" alt=""> Sunset: <span id="sunsettime"></span></div>
+        </div>
+
+        <div id="icon-temp-precHumWincList" class="detaileditem">
+          <img src="" class="detaileditem" id="detailedtempicon">
+          <div class="detaileditem" id="detailedtemp">current temp</div>
+          <div class="detaileditem" id="precHumWincList">
+            <div id="precipitation"><img id="precip" src="weathercons/raindrop.png" alt="" /><span id="chanceofrain">chance of rain</span></div>
+            <div id="humidity"><img id="humid" src="weathercons/humidity.png" alt="" /><span id="myhumidity"> humidity</div>
+            <div id="wind"><img id="winds" src="weathercons/windy2.png" alt="" /><span id="mywind">wind</span></div>
+          </div>
+        </div>
+
+
+      <div id="daily">
+
+        <div id="morn" class="detaileditem">
+          <div class="detailedinneritem">Morning</div>
+          <div class="detailedinneritem">Afternoon</div>
+          <div class="detailedinneritem">Evening</div>
+          <div class="detailedinneritem">Night</div>
+        </div>
+
+        <div id="gap" class="detaileditem">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+
+        <div id="noon" class="detaileditem">
+          <img src="" class="detailedinneritem" id="morningicon">
+          <img src="" class="detailedinneritem" id="afternoonicon">
+          <img src="" class="detailedinneritem" id="eveningicon">
+          <img src="" class="detailedinneritem" id="nighticon">
+        </div>
+
+        <div id="gap" class="detaileditem">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+
+        <div id="eve" class="detaileditem">
+          <div class="detailedinneritem" id="morningdescription">Descripmorn1</div>
+          <div class="detailedinneritem" id="afternoondescription">Descripnoon</div>
+          <div class="detailedinneritem" id="eveningdescription">descripeve</div>
+          <div class="detailedinneritem" id="nightdescription">descripnight</div>
+        </div>
+
+        <div id="gap" class="detaileditem">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+
+        <div id="night" class="detaileditem">
+          <div class="detailedinneritem" id="morningtemperature">Max/Minmorn</div>
+          <div class="detailedinneritem" id="afternoontemperature">maxminnoon</div>
+          <div class="detailedinneritem" id="eveningtemperature">maxmineve</div>
+          <div class="detailedinneritem" id="nighttemperature">maxminnight</div>
+        </div>
+
+        <div id="gap" class="detaileditem">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+
+      </div>
 
 
       </div>
+
+      <!-- Beginning of innerContainer -->
 
       <div class="innerContainer">
 
@@ -74,43 +154,43 @@
         <div id="grid-item" class="iconForecast"><img id="currentIcon" src="" alt=""></div>
 
         <div id="grid-item" class="days">
-        <p id="header">Day</p>
-        <p class="day" id="day1"></p>
-        <p class="day" id="day2"></p>
-        <p class="day" id="day3"></p>
-        <p class="day" id="day4"></p>
-        <p class="day" id="day5"></p>
-        <p class="day" id="day6"></p>
+        <p class = "card1" id="header">Day</p>
+        <p class="card2 day" id="day1"></p>
+        <p class="card3 day" id="day2"></p>
+        <p class="card4 day" id="day3"></p>
+        <p class="card5 day" id="day4"></p>
+        <p class="card6 day" id="day5"></p>
+        <p class="card7 day" id="day6"></p>
         </div>
 
         <div id="grid-item" class="dayIcons">
-          <p id="header">Forecast</p>
-          <img id="iconday1" src="" alt="">
-          <img id="iconday2" src="" alt="">
-          <img id="iconday3" src="" alt="">
-          <img id="iconday4" src="" alt="">
-          <img id="iconday5" src="" alt="">
-          <img id="iconday6" src="" alt="">
+          <p class = "card1" id="header">Forecast</p>
+          <img class = "card2" id="iconday1" src="" alt="">
+          <img class = "card3" id="iconday2" src="" alt="">
+          <img class = "card4" id="iconday3" src="" alt="">
+          <img class = "card5" id="iconday4" src="" alt="">
+          <img class = "card6" id="iconday5" src="" alt="">
+          <img class = "card7" id="iconday6" src="" alt="">
         </div>
 
         <div id="grid-item" class="dayMinMax">
-          <p id="header">Max/Min</p>
-          <p id="dayMinMax1"><span id ="max1"></span><span id ="min1"></span></p>
-          <p id="dayMinMax2"><span id ="max2"></span><span id ="min2"></span></p>
-          <p id="dayMinMax3"><span id ="max3"></span><span id ="min3"></span></p>
-          <p id="dayMinMax4"><span id ="max4"></span><span id ="min4"></span></p>
-          <p id="dayMinMax5"><span id ="max5"></span><span id ="min5"></span></p>
-          <p id="dayMinMax6"><span id ="max6"></span><span id ="min6"></span></p>
+          <p class = "card1" id="header">Max/Min</p>
+          <p class = "card2" id="dayMinMax1"><span id ="max1"></span><span id ="min1"></span></p>
+          <p class = "card3" id="dayMinMax2"><span id ="max2"></span><span id ="min2"></span></p>
+          <p class = "card4" id="dayMinMax3"><span id ="max3"></span><span id ="min3"></span></p>
+          <p class = "card5" id="dayMinMax4"><span id ="max4"></span><span id ="min4"></span></p>
+          <p class = "card6" id="dayMinMax5"><span id ="max5"></span><span id ="min5"></span></p>
+          <p class = "card7" id="dayMinMax6"><span id ="max6"></span><span id ="min6"></span></p>
         </div>
 
         <div id="grid-item" class="daywrittenForecast">
-          <p id="header">Description</p>
-          <p id="daywrittenForecast1"></p>
-          <p id="daywrittenForecast2"></p>
-          <p id="daywrittenForecast3"></p>
-          <p id="daywrittenForecast4"></p>
-          <p id="daywrittenForecast5"></p>
-          <p id="daywrittenForecast6"></p>
+          <p class = "card1" id="header">Description</p>
+          <p class = "card2" id="daywrittenForecast1"></p>
+          <p class = "card3" id="daywrittenForecast2"></p>
+          <p class = "card4" id="daywrittenForecast3"></p>
+          <p class = "card5" id="daywrittenForecast4"></p>
+          <p class = "card6" id="daywrittenForecast5"></p>
+          <p class = "card7" id="daywrittenForecast6"></p>
         </div>
 
         <div id="grid-item" class="searchLocation">
@@ -121,8 +201,8 @@
           </form> -->
 
         <form autocomplete="off" class="searchbar" action="" onsubmit="return false">
-          <div class="autocomplete" id="input-styling-address" style="width: 300px;">
-            <input id="myInput" type="search" name="myCountry" placeholder="Search by City or Country">
+          <div class="autocomplete" id="input-styling-address">
+            <input id="myInput" type="search" name="myCountry" style="width: 250px" placeholder="Search by City or Country">
 
           </div>
           <input type="submit" id="submitBtn" value="Submit" name="">
@@ -144,7 +224,6 @@
 
 
 <script src="scripts.js" charset="utf-8"></script>
-<script src="https://cdn.jsdelivr.net/npm/places.js@1.19.0"></script>
 
 
 
